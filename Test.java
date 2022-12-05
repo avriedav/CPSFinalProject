@@ -1,45 +1,58 @@
 import java.util.*;
-public class Test {
+import java.awt.FlowLayout;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class DisplayImage {
 	public static void main(String[] args) {
 		System.out.println("Hello!");
 		System.out.println("Welcome to Time Conversion Calcuator!");
-		Scanner input = new Scanner(System.in);
-		System.out.print("Please select your continent from the following options: "
-				+ "\n1 for North America, 2 for South America, 3 for Asia, 4 for Europe, 5 for Africa, and 6 for Australia\n");
-		int userContinent = input.nextInt();
 		
-		switch (userContinent) {
-		case 1: 
-			System.out.println("Your continent is North America! (:");
-			Scanner input1 = new Scanner(System.in);
-			System.out.print("Please select your friend's continent from the following options: "
-					+ "\n1 for North America, 2 for South America, 3 for Asia, 4 for Europe, 5 for Africa, and 6 for Australia\n");
-			int friendContinent = input.nextInt();
-			
-			switch (friendContinent) {
-			case 1: 
-				System.out.println("Your friend's continent is North America! (:");
-				System.out.println("Your local time will be based on military time.");
-				Scanner input2 = new Scanner(System.in);
-				System.out.print("Please enter the hour for your local time: ");
-				int hour = input.nextInt();
-				
-				Scanner input3 = new Scanner(System.in);
-				System.out.print("Please enter the minute: ");
-				int minute = input.nextInt();
-				
-				System.out.println("What day of the week is it?");
-				Scanner input4 = new Scanner(System.in);
-				System.out.print("Enter 1 for Monday, 2 for Tuesday, 3 for Wednesday, and so on...");
-				int day = input. nextInt();
-				
-				switch (day) {
-				case 1:
-					
-					System.out.print("You said your local time is " + hour + ":"  + minute + " on Monday");	
-				}
+		DisplayImage abc = new DisplayImage();
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter your Time Zone in reference to UTC (i.e. if UTC -8, enter -8) : " );
+		int timezone1 = input.nextInt();
+		
+		System.out.println("Now please enter your local time! Time will be calculated using military time. ");
+		Scanner input2 = new Scanner(System.in);
+		System.out.println("Please enter the hour: ");
+		int hour = input.nextInt();
+		
+		Scanner input3 = new Scanner(System.in);
+		System.out.println("Please enter the minute: ");
+		int minute = input.nextInt();
+		
+		System.out.println("You said your local time is " + hour + ":" + minute);
+		Scanner input4 = new Scanner(System.in);
+		System.out.println("Please enter your friend's Time Zone: ");
+		int timezone2 = input.nextInt();
+		
+		int fhour = timeZoneCalculator(timezone1, timezone2, hour);
+		System.out.println("Your friend's local time is " + fhour + ":" + minute);
 		
 			}
-		}
+	
+	public DisplayImage() throws IOException {
+		BufferedImage img = ImageIO.read(new File("/Users/avriedavis/Downloads/TimeZone Map.jpg"));
+		ImageIcon icon = new ImageIcon(img);
+		JFrame frame = new JFrame();
+		frame.setLayout(new FlowLayout());
+		frame.setSize(200, 300);
+		JLabel lbl = new JLabel();
+		lbl.setIcon(icon);
+		frame.add(lbl);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+	public static int timeZoneCalculator(int timezone_1, int timezone_2, int yourhour) {
+		int timeDifference = timezone_1 - timezone_2;
+		int fhour = yourhour - timeDifference;
+		return fhour;
+		}
 }
