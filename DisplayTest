@@ -3,42 +3,47 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 
-
-public class WorldwideTimeZoneCalculator {
+public class TimeZoneCalculator {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hello!");
 		System.out.println("Welcome to Time Conversion Calcuator!");
-
+		Scanner input1 = new Scanner(System.in);
+		System.out.println("How many times zone differences would you like to calculate?");
+		int n = input1.nextInt();
+		
 		
 		Desktop d = Desktop.getDesktop();
 		d.browse(new URI("https://www.worldtimezone.com"));
-		Scanner input = new Scanner(System.in);
-		System.out.println("Please enter your Time Zone in reference to UTC (i.e. if UTC -8, enter -8) : " );
-		int timezone1 = input.nextInt();
+		for (int i=0; i<n; i++) {
+			Scanner input = new Scanner(System.in);
+			System.out.println("Please enter your Time Zone in reference to UTC (i.e. if UTC -8, enter -8) : " );
+			int timezone1 = input.nextInt();
+			
+			
+			System.out.println("Now please enter your local time! Time will be calculated using military time. ");
+			Scanner input2 = new Scanner(System.in);
+			System.out.println("Please enter the hour: ");
+			int hour = input.nextInt();
+			
+			Scanner input3 = new Scanner(System.in);
+			System.out.println("Please enter the minute: ");
+			int minute = input.nextInt();
+			
+			System.out.println("You said your local time is " + hour + ":" + minute);
+			Scanner input4 = new Scanner(System.in);
+			System.out.println("Please enter your friend's Time Zone: ");
+			int timezone2 = input.nextInt();
+			
+			
+			
 		
-		System.out.println("Now please enter your local time! Time will be calculated using military time. ");
-		Scanner input2 = new Scanner(System.in);
-		System.out.println("Please enter the hour: ");
-		int hour = input.nextInt();
-		
-		Scanner input3 = new Scanner(System.in);
-		System.out.println("Please enter the minute: ");
-		int minute = input.nextInt();
-		
-		System.out.println("You said your local time is " + hour + ":" + minute);
-		Scanner input4 = new Scanner(System.in);
-		System.out.println("Please enter your friend's Time Zone: ");
-		int timezone2 = input.nextInt();
-		
-		int fhour = timeZoneCalculator(timezone1, timezone2, hour);
-		System.out.println("Your friend's local time is " + fhour + ":" + minute);
-		
-		
-		
+			int fhour = timeZoneCalculator(timezone1, timezone2, hour);
+			System.out.println("Your friend's local time is " + fhour + ":" + minute);
+			
 		}
+		
+	}
 	
-	
-
 	public static int timeZoneCalculator(int timezone_1, int timezone_2, int yourhour) {
 		int timeDifference = timezone_1 - timezone_2;
 		int fhour = yourhour - timeDifference;
